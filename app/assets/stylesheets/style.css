@@ -11,6 +11,7 @@ h3{
   font-size: 16px;
   color:#656565;
 }
+.header-logo {height:18px;margin-top:-4px;}
 form {
   font-size:18px;
 }
@@ -26,6 +27,12 @@ form {
 .form-link-small {
   font-size: 16px;
 }
+
+.custom-form-ckeckbox-label {
+  font-size:16px;
+  color:#555;
+}
+
 
 .simple-shadow {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

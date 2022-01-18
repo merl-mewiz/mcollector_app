@@ -15,6 +15,44 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+      <div class="container">
+        <%= link_to root_path, class: 'navbar-brand' do %>
+          <%= image_tag('logo.png', class: 'header-logo') %>
+        <% end %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= current_user.email %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Войти', new_user_session_path, class: 'nav-link mx-4' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Регистрация', new_user_registration_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mt-4">
+          <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, id: 'flash_#{name}' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <%= yield %>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
