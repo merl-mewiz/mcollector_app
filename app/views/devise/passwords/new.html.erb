@@ -1,16 +1,28 @@
-<h2>Forgot your password?</h2>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="mb-4">Восстановление пароля</h3>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="form-group custom-form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control custom-input', placeholder: 'Электронная почта' %>
+          </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <div class="row mt-4">
+            <div class="col-6">
+              <%= f.submit 'Восстановить пароль', class: 'btn btn-primary btn-lg px-lg-4' %>
+            </div>
+            <div class="col-6 text-right my-auto">
+              <%= link_to 'Зарегестрироваться', new_user_registration_path, class: 'form-link-small mb-2' %><br>
+              <%= link_to 'Войти с паролем', new_user_session_path, class: 'form-link-small' %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
