@@ -54,3 +54,4 @@ end
 gem 'tzinfo-data'
 
 gem 'devise'
+gem 'cancancan'
