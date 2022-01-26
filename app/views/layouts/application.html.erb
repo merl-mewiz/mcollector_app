@@ -27,9 +27,17 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
           <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
-            <li class="nav-item">
-              <%= current_user.email %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <%= current_user.email %>
+              </a>
+              <div class="dropdown-menu">
+                <%= link_to 'Профиль', edit_user_registration_path, class: 'dropdown-item' %>
+                <div class="dropdown-divider"></div>
+                <%= button_to 'Выход', destroy_user_session_path, method: :delete, class: 'dropdown-item dropdown-button-link' %>
+              </div>
             </li>
+
           <% else %>
             <li class="nav-item">
               <%= link_to 'Войти', new_user_session_path, class: 'nav-link mx-4' %>
