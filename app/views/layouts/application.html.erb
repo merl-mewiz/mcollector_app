@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all' %>
 
     <%= csrf_meta_tags %>
@@ -25,6 +26,13 @@
         </button>
 
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <% if user_signed_in? %>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <%= link_to 'Товары', items_path, class: 'nav-link' %>
+            </li>
+          </ul>
+          <% end %>
           <ul class="navbar-nav ml-auto">
           <% if user_signed_in? %>
             <li class="nav-item dropdown">
@@ -32,9 +40,13 @@
                 <%= current_user.email %>
               </a>
               <div class="dropdown-menu">
-                <%= link_to 'Профиль', edit_user_registration_path, class: 'dropdown-item' %>
+                <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+                  <span class="material-icons main-dropdown-icon">account_circle</span> Профиль
+                <% end %>
                 <div class="dropdown-divider"></div>
-                <%= button_to 'Выход', destroy_user_session_path, method: :delete, class: 'dropdown-item dropdown-button-link' %>
+                <%= button_to destroy_user_session_path, method: :delete, class: 'dropdown-item dropdown-button-link' do %>
+                  <span class="material-icons main-dropdown-icon">logout</span> Выход
+                <% end %>
               </div>
             </li>
 

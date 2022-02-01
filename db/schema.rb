@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_18_075627) do
+ActiveRecord::Schema.define(version: 2022_02_01_061452) do
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.string "sku"
+    t.text "description"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "items_keywords", id: false, force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "keyword_id"
+    t.index ["item_id"], name: "index_items_keywords_on_item_id"
+    t.index ["keyword_id"], name: "index_items_keywords_on_keyword_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "results_count"
+    t.date "last_collect_date"
+    t.index ["name"], name: "index_keywords_on_name", unique: true
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -27,7 +51,7 @@ ActiveRecord::Schema.define(version: 2022_01_18_075627) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "role_id", default: 1
+    t.integer "role_id", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -35,4 +59,6 @@ ActiveRecord::Schema.define(version: 2022_01_18_075627) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "items", "users"
+  add_foreign_key "users", "roles"
 end

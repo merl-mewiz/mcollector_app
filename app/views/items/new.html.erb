@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mb-3">Добавление товара</h4>
+      <div class="card">
+        <div class="card-header">
+          <%= link_to items_path, class: 'btn btn-secondary' do %>
+            <span class="material-icons button-icon">chevron_left</span> Назад
+          <% end %>
+        </div>
+        <div class="card-body pb-0">
+          <%= render 'form', item: @item %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

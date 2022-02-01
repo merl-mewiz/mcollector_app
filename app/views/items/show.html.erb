@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+
+      <h4 class="mb-3"><%= @item.name %></h4>
+      <div class="card">
+        <div class="card-header">
+          <%= link_to items_path, class: 'btn btn-secondary' do %>
+            <span class="material-icons button-icon">chevron_left</span> Назад
+          <% end %>
+          <%= link_to edit_item_path(@item), class: 'btn btn-primary' do %>
+            <span class="material-icons button-icon">edit</span> Редактировать
+          <% end %>
+        </div>
+        <div class="card-body pb-0">
+          <p><strong>Артикул WB:</strong> <%= @item.sku %></p>
+          <p><strong>Описание:</strong> <%= @item.description %></p>
+        </div>
+      </div>
+
+      <h5 class="mt-4 mb-2">Ключевые слова</h5>
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keywordModal">
+            <span class="material-icons button-icon">add</span> Добавить
+          </button>
+        </div>
+        <div class="card-body pb-0">
+          <% @keywords.each do |keyword| %>
+            <%= keyword.name %> <br>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= render 'add_keyword_modal' %>

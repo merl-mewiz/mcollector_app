@@ -7,6 +7,7 @@ h3{
   font-weight:600;
   font-size: 26px;
 }
+h4, h5, h6 {font-weight: 600}
 .header-hint {
   font-size: 16px;
   color:#656565;
@@ -27,6 +28,18 @@ form {
   font-size: 18px;
   padding: 25px 10px;
 }
+.custom-form-group-inner label {
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+.custom-form-group-inner input {
+  font-size: 16px;
+  padding: 20px 10px;
+}
+.custom-form-group-inner textarea {
+  font-size: 16px;
+}
+
 .form-link-small {
   font-size: 16px;
 }
@@ -48,4 +61,43 @@ form {
 .navbar-light .navbar-nav .nav-link:hover {
   color:#000;
   text-decoration: underline;
+}
+
+.items-list-delete-item {
+  width:20px;
+}
+.main-dropdown-icon {
+  font-size:22px;
+  position:relative;
+  top:6px;
+  margin-right:4px;
+}
+.button-icon-sm {
+  font-size:16px;
+  position:relative;
+  top:2px;
+}
+.button-icon {
+  font-size:18px;
+  position:relative;
+  top:3px;
+}
+.modal-header {
+  background-color: #eee;
+}
+.modal-header-icon {
+  font-size:22px;
+  position:relative;
+  top:5px;
+}
+.btn-del-item {
+  line-height: 0;
+  color:#aeaeae;
+}
+.btn-del-item:hover {
+  color: #dc3545;
+}
+.btn-del-item-icon {
+  font-weight: 600;
+  font-size: 22px;
 }

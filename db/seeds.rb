@@ -12,3 +12,21 @@ r3 = Role.create({ name: 'Admin', description: 'Can all' })
 
 u1 = User.create({ fio: 'admin', email: 'use4all@mail.ru', password: '7550055', password_confirmation: '7550055', role_id: r3.id })
 u2 = User.create({ fio: 'user1', email: 'test@test.ru', password: '7550055', password_confirmation: '7550055', role_id: r1.id })
+
+kw1 = Keyword.create({ name: 'морской бой', results_count: 0 })
+kw2 = Keyword.create({ name: 'настольная игра', results_count: 0 })
+kw3 = Keyword.create({ name: 'семейная игра', results_count: 0 })
+kw4 = Keyword.create({ name: 'пирамидка', results_count: 0 })
+kw5 = Keyword.create({ name: 'пирамидка детская', results_count: 0 })
+kw6 = Keyword.create({ name: 'стаканчики', results_count: 0 })
+kw7 = Keyword.create({ name: 'развивающие игрушки', results_count: 0 })
+
+i1 = Item.create({ name: 'Морской бой', sku: '8210228', description: 'Настольная игра "Морской бой"', user_id: u1.id })
+i1.keywords << kw1
+i1.keywords << kw2
+i1.keywords << kw3
+i2 = Item.create({ name: 'Пирамидка детская большая', sku: '9862999', description: 'Пирамидка детская большая/ Стаканчики/ Развивающие игрушки/ Игрушки для ванной/ Игрушки в песочницу', user_id: u1.id })
+i2.keywords << kw4
+i2.keywords << kw5
+i2.keywords << kw6
+i2.keywords << kw7

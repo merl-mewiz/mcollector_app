@@ -1,0 +1,34 @@
+<%= form_with(model: item, local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group custom-form-group-inner">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control custom-input', placeholder: 'Название' %>
+  </div>
+
+  <div class="form-group custom-form-group-inner">
+    <%= form.label :sku %>
+    <%= form.text_field :sku, class: 'form-control custom-input', placeholder: 'Артикул' %>
+  </div>
+
+  <div class="form-group custom-form-group-inner mb-4">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control custom-input', rows: 4, placeholder: 'Описание' %>
+  </div>
+
+  <div class="actions">
+    <%= form.button type: "submit", class: 'btn btn-success mb-4' do %>
+      <span class="material-icons button-icon">done</span> Сохранить
+    <% end %>
+  </div>
+<% end %>
