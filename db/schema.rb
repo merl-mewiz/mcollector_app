@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_01_061452) do
+ActiveRecord::Schema.define(version: 2022_02_04_050616) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -29,10 +29,19 @@ ActiveRecord::Schema.define(version: 2022_02_01_061452) do
     t.index ["keyword_id"], name: "index_items_keywords_on_keyword_id"
   end
 
+  create_table "keyword_logs", id: false, force: :cascade do |t|
+    t.string "log_text"
+    t.datetime "log_date"
+    t.integer "keyword_id", null: false
+    t.index ["keyword_id"], name: "index_keyword_logs_on_keyword_id"
+  end
+
   create_table "keywords", force: :cascade do |t|
     t.string "name", null: false
     t.integer "results_count"
     t.date "last_collect_date"
+    t.integer "parse_error"
+    t.date "parse_error_date"
     t.index ["name"], name: "index_keywords_on_name", unique: true
   end
 
@@ -59,6 +68,14 @@ ActiveRecord::Schema.define(version: 2022_02_01_061452) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  create_table "wb_stat_keywords", id: false, force: :cascade do |t|
+    t.string "sku"
+    t.string "keyword"
+    t.integer "position"
+    t.date "search_date"
+  end
+
   add_foreign_key "items", "users"
+  add_foreign_key "keyword_logs", "keywords"
   add_foreign_key "users", "roles"
 end

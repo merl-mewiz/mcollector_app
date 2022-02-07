@@ -31,8 +31,8 @@
                   </td>
                   <td><%= item.description %></td>
                   <td class="px-4">
-                    <%= button_to item, method: :delete, class: 'btn btn-del-item py-2 px-2', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
-                      <span class="material-icons btn-del-item-icon">clear</span>
+                    <%= button_to item, method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
+                      <span class="material-icons btn-table-icon">clear</span>
                     <% end %>
                   </td>
                 </tr>

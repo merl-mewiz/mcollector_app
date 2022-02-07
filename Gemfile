@@ -53,5 +53,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data'
 
-gem 'devise'
 gem 'cancancan'
+gem 'devise'
+gem 'net-http'
+gem 'sidekiq'
+gem 'sidekiq-cron'

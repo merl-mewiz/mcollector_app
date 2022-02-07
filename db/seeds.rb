@@ -20,6 +20,7 @@ kw4 = Keyword.create({ name: 'пирамидка', results_count: 0 })
 kw5 = Keyword.create({ name: 'пирамидка детская', results_count: 0 })
 kw6 = Keyword.create({ name: 'стаканчики', results_count: 0 })
 kw7 = Keyword.create({ name: 'развивающие игрушки', results_count: 0 })
+kw8 = Keyword.create({ name: 'игрушка', results_count: 0 })
 
 i1 = Item.create({ name: 'Морской бой', sku: '8210228', description: 'Настольная игра "Морской бой"', user_id: u1.id })
 i1.keywords << kw1
@@ -30,3 +31,4 @@ i2.keywords << kw4
 i2.keywords << kw5
 i2.keywords << kw6
 i2.keywords << kw7
+i2.keywords << kw8

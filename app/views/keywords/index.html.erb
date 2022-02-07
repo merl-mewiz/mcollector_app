@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+       <h4 class="mb-3">Ключевые слова</h4>
+      <div class="card">
+        <div class="card-header">
+          <%= link_to keywords_path, class: 'btn btn-primary' do %>
+            <span class="material-icons button-icon">add</span> Добавить
+          <% end %>
+        </div>
+        <div class="card-body">
+          <table class="table table-hover">
+            <tbody>
+              <% @keywords.each do |keyword| %>
+                <tr>
+                  <td class="col-2 col-lg-1 text-center" title="Дата последнего сбора статистики и количество результатов">
+                    <div><span class="badge badge-dark"><%= keyword.results_count %></span></div>
+                    <div class="table-keyword-date"><%= keyword.last_collect_date.strftime("%d.%m.%Y") if keyword.last_collect_date %><div>
+                  </td>
+                  <td class="col-4 col-lg-9">
+                    <div>
+                      <a href="https://napi.wildberries.ru/api/search/results?search=<%= keyword.name %>" target="_blank" title="Посмотреть в API WB">
+                        <%= keyword.name %>
+                      </a>
+                    </div>
+                    <div class="table-keyword-date">Связанные товары: <%= keyword.items.count %></div>
+                  </td>
+                  <td class="col-2 col-lg-6 text-right">
+                    <div class="d-inline-block mr-2">
+                      <%= button_to update_keywords_path(keyword: keyword.name), method: :post, class: 'btn btn-table-button py-2 px-2 d-inline', form: {target: '_blank'}, title: 'Запустить сбор статистики вручную' do %>
+                        <span class="material-icons btn-table-icon">youtube_searched_for</span>
+                      <% end %>
+                    </div>
+                    <div class="d-inline-block mr-1">
+                      <%= button_to view_log_keyword_path(keyword), method: :get, form: {target: '_blank'}, class: 'btn btn-table-button py-2 px-2 d-inline', title: 'Лог сбора статистики' do %>
+                        <span class="material-icons btn-table-icon">description</span>
+                      <% end %>
+                    </div>
+                    <div class="d-inline-block">
+                      <%= button_to keyword, method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2 d-inline', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
+                        <span class="material-icons btn-table-icon">clear</span>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

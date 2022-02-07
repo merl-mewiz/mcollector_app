@@ -90,14 +90,22 @@ form {
   position:relative;
   top:5px;
 }
-.btn-del-item {
-  line-height: 0;
+.btn-table-button {
+  line-height:0;
   color:#aeaeae;
 }
-.btn-del-item:hover {
+.btn-del-button:hover {
   color: #dc3545;
 }
-.btn-del-item-icon {
+.btn-table-icon {
   font-weight: 600;
   font-size: 22px;
+}
+.btn-log-item:hover {
+  color:#333;
+}
+
+.table-keyword-date {
+  font-size:12px;
+  color:#656565;
 }

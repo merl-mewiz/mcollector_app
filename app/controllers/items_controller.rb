@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_item, only: %i[show edit update destroy add_keyword]
 
   # GET /items or /items.json
@@ -28,7 +29,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: 'Item was successfully created.' }
+        format.html { redirect_to item_url(@item), notice: "Товар \"#{@item.name}\" создан." }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +42,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to item_url(@item), notice: 'Item was successfully updated.' }
+        format.html { redirect_to item_url(@item), notice: 'Данные успешно обновлены.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,10 +53,11 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1 or /items/1.json
   def destroy
+    item_name = @item.name
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to items_url, notice: "Товар \"#{item_name}\" удален." }
       format.json { head :no_content }
     end
   end

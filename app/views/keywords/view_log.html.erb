@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="mb-3">Лог ключевого слова "<%= @keyword.name %>"</h4>
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-sm">
+            <tbody>
+              <% @keyword.keyword_logs.each do |one_string| %>
+                <tr>
+                  <td class="text-center">
+                  <% if one_string.log_date %>
+                    <%= one_string.log_date.strftime("%d.%m.%Y") %><br>
+                    <%= one_string.log_date.strftime("%H:%M:%S") %><br>
+                  <% end %>
+                  </td>
+                  <td><%= one_string.log_text %></td>
+                </tr>
+              <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
