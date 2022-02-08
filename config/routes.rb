@@ -7,5 +7,6 @@ Rails.application.routes.draw do
 
   resources :keywords, only: %i[index create destroy]
   post '/keywords/update/:keyword', to: 'keywords#update_data', as: 'update_keywords'
+  post '/keywords/update_all', to: 'keywords#update_all_data', as: 'update_all_keywords'
   get '/keywords/:id/log', to: 'keywords#view_log', as: 'view_log_keyword'
 end

@@ -15,12 +15,19 @@ module KeywordManager
     end
 
     def call
-      items = get_items(@start_page)
-      if items.any?
-        ActiveRecord::Base.transaction do
-          WbStatKeyword.save_keyword_stat(@keyword, items)
-          Keyword.update_keyword_info(@keyword, items.count)
+      keyword = Keyword.where(name: @keyword).first
+
+      if keyword
+        keyword.change_status!(1)
+
+        items = get_items(@start_page)
+        if items.any?
+          ActiveRecord::Base.transaction do
+            WbStatKeyword.save_keyword_stat(@keyword, items)
+            Keyword.update_keyword_info(@keyword, items.count)
+          end
         end
+        keyword.change_status!(0)
       end
 
       items
@@ -58,7 +65,7 @@ module KeywordManager
           sleep(@pause_between_requests) # делаем паузу чтобы уменьшить частоту запросов
         else
           if retry_count >= @retry_attempts
-            add_log_message(@keyword, one_page[0][:message])
+            KeywordLog.add_log_message(@keyword, one_page[0][:message])
             break
           end
 
@@ -71,16 +78,13 @@ module KeywordManager
       total2 = last_page * page_size + 10
 
       unless (ret_data.count == total_items) || (ret_data.count == total1) || (ret_data.count == total2)
-        add_log_message(@keyword, "Количество товаров (#{ret_data.count}) не совпадает с данными API")
+        KeywordLog.add_log_message(@keyword, "Количество товаров (#{ret_data.count}) не совпадает с данными API")
         ret_data = []
       end
 
-      ret_data.uniq
-    end
+      KeywordLog.add_log_message(@keyword, "Собрано товаров (#{ret_data.count}), из них уникальных (#{ret_data.uniq.count}), по данным API: (#{total_items}) / (#{total1}) / (#{total2})")
 
-    def add_log_message(keyword, message)
-      log_keyword = Keyword.where(name: keyword).first
-      KeywordLog.create(keyword_id: log_keyword.id, log_text: message, log_date: DateTime.now) if log_keyword
+      ret_data.uniq
     end
   end
 end

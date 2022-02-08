@@ -11,6 +11,16 @@ class ItemsController < ApplicationController
   # GET /items/1 or /items/1.json
   def show
     @keywords = @item.keywords
+    @keywords_data = Hash.new
+    @keywords.each do |keyword|
+      result_positions = Hash.new
+      @positions = WbStatKeyword.where(sku: @item.sku, keyword: keyword.name).order(search_date: :desc)
+      @positions.each do |position|
+        result_positions[position.search_date] = position.position
+      end
+
+      @keywords_data[keyword.name] = result_positions
+    end
   end
 
   # GET /items/new

@@ -38,10 +38,10 @@ ActiveRecord::Schema.define(version: 2022_02_04_050616) do
 
   create_table "keywords", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "results_count"
-    t.date "last_collect_date"
-    t.integer "parse_error"
-    t.date "parse_error_date"
+    t.integer "results_count", default: 0
+    t.datetime "last_collect_date"
+    t.integer "status", limit: 2, default: 0
+    t.datetime "status_error_date"
     t.index ["name"], name: "index_keywords_on_name", unique: true
   end
 

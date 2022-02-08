@@ -16,6 +16,9 @@ h4, h5, h6 {font-weight: 600}
 form {
   font-size:18px;
 }
+.cursor-help {
+  cursor: help;
+}
 .dropdown-button-link {
   font-size:16px;
 }
@@ -108,4 +111,28 @@ form {
 .table-keyword-date {
   font-size:12px;
   color:#656565;
+}
+.expand-icon {
+  font-size:20px;
+  position:relative;
+  top:5px;
+  color: #888;
+}
+.item-keyword-header {
+  background-color: #fcfcfc;
+  cursor: pointer;
+}
+.collapsing {
+  -webkit-transition: height .01s ease;
+  -o-transition: height .01s ease;
+  transition: height .01s ease;
+}
+.expand-up {display: none;}
+[aria-expanded="true"] .expand-down,
+[aria-expanded="false"] .expand-up {
+  display: none;
+}
+[aria-expanded="false"] .expand-down,
+[aria-expanded="true"] .expand-up {
+  display: inline-block;
 }

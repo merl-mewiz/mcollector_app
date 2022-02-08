@@ -1,0 +1,3 @@
+# collect_keywords_job:
+#  cron: "15 2 * * *" #запуск каждый день в 2:15 утра
+#  class: "CollectKeywordsDataWorker"
