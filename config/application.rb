@@ -13,7 +13,7 @@ module McollectorApp
     config.autoload_paths << "#{root}/app/workers"
     config.autoload_paths << "#{root}/lib"
 
-    config.time_zone = "Moscow"
+    config.time_zone = 'Moscow'
 
     config.active_job.queue_adapter = :sidekiq
 

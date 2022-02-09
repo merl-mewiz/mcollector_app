@@ -26,6 +26,14 @@ class KeywordsController < ApplicationController
     # render json: { keyword: keyword, results_count: @keyword_data.count, items: @keyword_data }
   end
 
+  # тестовый метод для получения данных по ключевому слову
+  def update_data_test
+    keyword = params[:keyword].downcase.chomp.strip
+
+    @keyword_data = KeywordManager::WbKeywordsStatService.call(keyword)
+    render json: { keyword: keyword, results_count: @keyword_data.count, items: @keyword_data }
+  end
+
   # ручной запуск обновления данных по всем ключевым словам
   def update_all_data
     CollectWbKeywordsDataWorker.perform_async

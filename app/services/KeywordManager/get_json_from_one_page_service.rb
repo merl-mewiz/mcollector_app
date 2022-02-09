@@ -7,16 +7,30 @@ module KeywordManager
     end
 
     def call
-      return Failure.new(err_code: :empty_url, message: 'URL is empty') if @page_url.empty?
+      if @page_url.empty?
+        result = Failure.new
+        result[:message] = 'URL is empty'
+        return result
+      end
 
       begin
         resp = Net::HTTP.get_response(URI.parse(@page_url))
         page = JSON.parse(resp.body)
-        return Failure.new(err_code: :response_error, message: page['data']['errorMsg']) if page['state'] == -1
+        # если вернулся пустой результат или произошла ошибка
+        if page['state'] == -1
+          result = Failure.new
+          result[:message] = page['data']['errorMsg']
+          return result
+        end
 
-        result = Success.new(products: page['data']['products'], pager: page['data']['pager'])
+        # при успехе возвращаем список товаров со страницы и информацию о
+        # кол-ве страниц и кол-ве товаров
+        result = Success.new
+        result[:products] = page['data']['products']
+        result[:pager] = page['data']['pager']
       rescue StandardError => e
-        result = Failure.new(err_code: :net_error, message: e)
+        result = Failure.new
+        result[:message] = e
       end
 
       result

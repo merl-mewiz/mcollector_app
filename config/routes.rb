@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   post '/items/:id/addkeyword', to: 'items#add_keyword', as: 'add_keyword'
 
   resources :keywords, only: %i[index create destroy]
-  post '/keywords/update/:keyword', to: 'keywords#update_data', as: 'update_keywords'
+  post '/keywords/update/:keyword', to: 'keywords#update_data', as: 'update_keyword'
+  post '/keywords/update_test/:keyword', to: 'keywords#update_data_test', as: 'update_test_keyword'
+
   post '/keywords/update_all', to: 'keywords#update_all_data', as: 'update_all_keywords'
   get '/keywords/:id/log', to: 'keywords#view_log', as: 'view_log_keyword'
 end

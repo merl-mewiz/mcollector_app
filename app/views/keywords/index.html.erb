@@ -20,21 +20,26 @@
             <tbody>
               <% @keywords.each do |keyword| %>
                 <tr>
-                  <td class="col-2 col-lg-1 text-center" title="Дата последнего сбора статистики и количество результатов">
-                    <div><span class="badge badge-dark"><%= keyword.results_count %></span></div>
-                    <div class="table-keyword-date"><%= keyword.last_collect_date.strftime("%d.%m.%Y") if keyword.last_collect_date %><div>
-                  </td>
-                  <td class="col-4 col-lg-9">
-                    <% if keyword.status == 1 %>
-                    <div class="d-inline-block align-top h-100 pt-2 pr-3 cursor-help" title="Идет сбор статистики">
-                      <span class="material-icons text-info">downloading</span>
-                    </div>
-                    <% end %>
-                    <% if keyword.status == -1 %>
-                    <div class="d-inline-block align-top h-100 pt-2 pr-3 cursor-help" title="Произошла ошибка при сборе статистики">
-                      <span class="material-icons text-danger">error</span>
-                    </div>
-                    <% end %>
+                  <% case keyword.status %>
+                  <% when 1 %>
+                    <td class="col-2 col-lg-1 text-center cursor-help" title="Идет сбор статистики">
+                      <div class="d-inline-block align-top h-100 pt-2">
+                        <span class="material-icons text-info rotate_elem">sync</span>
+                      </div>
+                    </td>
+                  <% when -1 %>
+                    <td class="col-2 col-lg-1 text-center cursor-help" title="Произошла ошибка при сборе статистики">
+                      <div class="d-inline-block align-top h-100 pt-2">
+                        <span class="material-icons text-danger">error</span>
+                      </div>
+                    </td>
+                  <% else %>
+                    <td class="col-2 col-lg-1 text-center cursor-default" title="Дата последнего сбора статистики и количество результатов">
+                      <div><span class="badge badge-dark"><%= keyword.results_count %></span></div>
+                      <div class="table-keyword-date"><%= keyword.last_collect_date.strftime("%d.%m.%Y") if keyword.last_collect_date %><div>
+                    </td>
+                  <% end %>
+                  <td class="col-4 col-lg-8">
                     <div class="d-inline-block">
                       <div>
                         <a href="https://napi.wildberries.ru/api/search/results?search=<%= keyword.name %>" target="_blank" title="Посмотреть в API WB">
@@ -44,12 +49,22 @@
                       <div class="table-keyword-date">Связанные товары: <%= keyword.items.count %></div>
                     </div>
                   </td>
-                  <td class="col-2 col-lg-2 text-right">
-                    <div class="d-inline-block mr-2">
-                      <%= button_to update_keywords_path(keyword: keyword.name), method: :post, class: 'btn btn-table-button py-2 px-2 d-inline', title: 'Запустить сбор статистики вручную' do %>
-                        <span class="material-icons btn-table-icon">youtube_searched_for</span>
+                  <td class="col-3 text-right">
+
+                    <div class="d-inline-block mr-1">
+                      <%= button_to update_test_keyword_path(keyword: keyword.name), method: :post, form: {target: '_blank'}, class: 'btn btn-table-button py-2 px-2 d-inline', title: 'Тестовый сбор данных' do %>
+                        <span class="material-icons btn-table-icon">format_list_bulleted</span>
                       <% end %>
                     </div>
+
+                    <% if keyword.status != 1 %>
+                    <div class="d-inline-block mr-2">
+                      <%= button_to update_keyword_path(keyword: keyword.name), method: :post, class: 'btn btn-table-button btn-start-search-button py-2 px-2 d-inline', title: 'Запустить сбор статистики вручную' do %>
+                        <span class="material-icons btn-table-icon">downloading</span>
+                      <% end %>
+                    </div>
+                    <% end %>
+
                     <div class="d-inline-block mr-1">
                       <%= button_to view_log_keyword_path(keyword), method: :get, form: {target: '_blank'}, class: 'btn btn-table-button py-2 px-2 d-inline', title: 'Лог сбора статистики' do %>
                         <span class="material-icons btn-table-icon">description</span>

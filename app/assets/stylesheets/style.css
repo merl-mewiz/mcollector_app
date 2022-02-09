@@ -16,8 +16,26 @@ h4, h5, h6 {font-weight: 600}
 form {
   font-size:18px;
 }
+.cursor-default {
+  cursor: default;
+}
 .cursor-help {
   cursor: help;
+}
+/* Animations */
+.blink_elem {
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes moving {
+  100% {transform: rotate(-360deg);}
+}
+.rotate_elem {
+  animation: moving 3s infinite linear;
 }
 .dropdown-button-link {
   font-size:16px;
@@ -96,6 +114,9 @@ form {
 .btn-table-button {
   line-height:0;
   color:#aeaeae;
+}
+.btn-start-search-button:hover {
+  color: #17a2b8;
 }
 .btn-del-button:hover {
   color: #dc3545;
