@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_050616) do
     t.string "sku"
     t.string "keyword"
     t.integer "position"
-    t.date "search_date"
+    t.datetime "search_date"
   end
 
   add_foreign_key "items", "users"

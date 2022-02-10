@@ -4,7 +4,7 @@ class CreateWbStatKeywords < ActiveRecord::Migration[6.0]
       t.string :sku, presence: true, length: { maximum: 20 }
       t.string :keyword, presence: true
       t.integer :position, presence: true
-      t.date :search_date, presence: true
+      t.datetime :search_date, presence: true
     end
   end
 end

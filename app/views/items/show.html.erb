@@ -26,19 +26,6 @@
           </button>
         </div>
         <div class="card-body">
-        <!--
-          <% @keywords.each do |keyword| %>
-            <div class="card mb-2">
-              <div class="card-header item-keyword-header py-2 px-2" data-toggle="collapse" data-target="#keyword-<%= keyword.id %>">
-                <span class="material-icons expand-icon expand-down">expand_more</span>
-                <span class="material-icons expand-icon expand-up">expand_less</span>
-                 <%= keyword.name %>
-              </div>
-              <div id="keyword-<%= keyword.id %>" class="card-body collapse">
-              </div>
-            </div>
-          <% end %>
-        -->
           <% @keywords_data.each do |keyword, keyword_data| %>
             <div class="card mb-2">
               <div class="card-header item-keyword-header py-2 px-2" data-toggle="collapse" data-target="#keyword-<%= keyword %>">
@@ -49,7 +36,7 @@
               <div id="keyword-<%= keyword %>" class="card-body collapse">
                 <% if keyword_data.any? %>
                   <% keyword_data.each do |keyword_date, keyword_pos| %>
-                    <div><%= keyword_date %>: <%= keyword_pos %></div>
+                    <div><%= keyword_date.strftime("%d.%m.%Y %H:%M:%S") %>: <%= keyword_pos %></div>
                   <% end %>
                 <% else %>
                   <div>Нет данных</div>

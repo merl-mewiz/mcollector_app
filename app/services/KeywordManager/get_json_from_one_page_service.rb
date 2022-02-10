@@ -1,6 +1,4 @@
 module KeywordManager
-  # Returns JSON data from page
-  # Returns false if
   class GetJsonFromOnePageService < ApplicationService
     def initialize(page_url)
       @page_url = page_url.strip
