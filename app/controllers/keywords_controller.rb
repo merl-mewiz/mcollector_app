@@ -30,8 +30,12 @@ class KeywordsController < ApplicationController
   def update_data_test
     keyword = params[:keyword].downcase.chomp.strip
 
-    @keyword_data = KeywordManager::WbKeywordsStatService.call(keyword)
-    render json: { keyword: keyword, results_count: @keyword_data.count, items: @keyword_data }
+    @keyword_data = KeywordManager::GetAllItemsByKeywordFromWbService.call(keyword)
+    if @keyword_data.is_a? KeywordManager::GetAllItemsByKeywordFromWbService::Success
+      render json: { keyword: keyword, message: @keyword_data[:log_message], results_count: @keyword_data[:products].count, items: @keyword_data[:products] }
+    else
+      render json: { keyword: keyword, errorMessage: @keyword_data[:message] }
+    end
   end
 
   # ручной запуск обновления данных по всем ключевым словам

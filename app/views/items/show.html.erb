@@ -33,11 +33,12 @@
                 <span class="material-icons expand-icon expand-up">expand_less</span>
                  <%= keyword %>
               </div>
-              <div id="keyword-<%= keyword %>" class="card-body collapse">
+              <div id="keyword-<%= keyword %>" class="card-body collapse show">
                 <% if keyword_data.any? %>
                   <% keyword_data.each do |keyword_date, keyword_pos| %>
                     <div><%= keyword_date.strftime("%d.%m.%Y %H:%M:%S") %>: <%= keyword_pos %></div>
                   <% end %>
+                  <%= line_chart keyword_data.map { |key, val| [key.strftime("%d.%m.%Y %H:%M:%S"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1565c0", "#666"] %>
                 <% else %>
                   <div>Нет данных</div>
                 <% end %>

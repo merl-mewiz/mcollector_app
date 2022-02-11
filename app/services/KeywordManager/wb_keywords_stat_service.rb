@@ -22,14 +22,16 @@ module KeywordManager
 
           KeywordLog.add_log_message(@keyword, result[:log_message])
           keyword.change_status!(0)
+          return true
         else
           KeywordLog.add_log_message(@keyword, result[:message])
-          items = []
+          # items = []
           keyword.change_status!(-1)
         end
       end
 
-      items
+      # items
+      false
     end
   end
 end

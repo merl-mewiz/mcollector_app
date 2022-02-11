@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     @keywords_data = Hash.new
     @keywords.each do |keyword|
       result_positions = Hash.new
-      @positions = WbStatKeyword.where(sku: @item.sku, keyword: keyword.name).order(search_date: :desc)
+      @positions = WbStatKeyword.where(sku: @item.sku, keyword: keyword.name).order(search_date: :asc)
       @positions.each do |position|
         result_positions[position.search_date] = position.position
       end
