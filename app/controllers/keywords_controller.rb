@@ -2,10 +2,24 @@ class KeywordsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.paginate(page: params[:page], per_page: 30).order('name ASC')
+    @add_keyword_modal_url = keywords_path
   end
 
   def create
+    keyword = params[:keyword].downcase.chomp.strip
+
+    @result = Keyword.where(name: keyword)
+
+    if @result.nil? || @result.empty?
+      @result = Keyword.new(name: keyword)
+      @result.save
+      flash[:success] = "Ключевое слово \"#{keyword}\" успешно добавлено"
+    else
+      flash[:danger] = "Ключевое слово \"#{keyword}\" уже есть в базе"
+    end
+
+    redirect_to keywords_path
   end
 
   def destroy

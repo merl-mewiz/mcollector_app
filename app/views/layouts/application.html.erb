@@ -72,12 +72,13 @@
       <div class="container mt-2">
         <div class="row">
           <div class="col-12">
-            <div class="alert alert-info alert-dismissible fade show">
-              <button type="button" class="close" data-dismiss="alert">&times;</button>
-              <% flash.each do |name, msg| %>
-                <%= content_tag :div, msg, id: 'flash_#{name}' %>
-              <% end %>
-            </div>
+            <% flash.each do |key, value| %>
+              <% key = 'info' if key == 'notice' || key.empty? %>
+              <div class="alert alert-<%= key %> alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= content_tag :div, value%>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

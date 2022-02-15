@@ -5,7 +5,7 @@
         <h6 class="modal-title"><span class="material-icons modal-header-icon">playlist_add</span> Добавить ключевое слово</h6>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-        <%= form_with url: add_keyword_path, method: :post, local: true do |form| %>
+        <%= form_with url: @add_keyword_modal_url, method: :post, local: true do |form| %>
           <div class="modal-body">
             <div class="form-group custom-form-group mb-0">
               <%= form.text_field :keyword, :required => true, class: 'form-control custom-input', placeholder: 'Ключевое слово' %>

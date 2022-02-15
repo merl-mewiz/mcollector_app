@@ -10,8 +10,12 @@ module McollectorApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.autoload_paths << "#{root}/app/workers"
     config.autoload_paths << "#{root}/lib"
+
+    config.i18n.default_locale = :ru
+    config.i18n.locale = :ru
 
     config.time_zone = 'Moscow'
 

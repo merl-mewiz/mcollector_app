@@ -19,7 +19,7 @@
       </div>
 
       <h5 class="mt-4 mb-2">Ключевые слова</h5>
-      <div class="card">
+      <div class="card mb-4">
         <div class="card-header">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keywordModal">
             <span class="material-icons button-icon">add</span> Добавить
@@ -28,16 +28,16 @@
         <div class="card-body">
           <% @keywords_data.each do |keyword, keyword_data| %>
             <div class="card mb-2">
-              <div class="card-header item-keyword-header py-2 px-2" data-toggle="collapse" data-target="#keyword-<%= keyword %>">
-                <span class="material-icons expand-icon expand-down">expand_more</span>
-                <span class="material-icons expand-icon expand-up">expand_less</span>
-                 <%= keyword %>
+              <div class="card-header item-keyword-header py-2 px-3">
+                 <strong><%= keyword %></strong>
               </div>
-              <div id="keyword-<%= keyword %>" class="card-body collapse show">
+              <div class="card-body">
                 <% if keyword_data.any? %>
+                <!--
                   <% keyword_data.each do |keyword_date, keyword_pos| %>
                     <div><%= keyword_date.strftime("%d.%m.%Y %H:%M:%S") %>: <%= keyword_pos %></div>
                   <% end %>
+                -->
                   <%= line_chart keyword_data.map { |key, val| [key.strftime("%d.%m.%Y %H:%M:%S"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1565c0", "#666"] %>
                 <% else %>
                   <div>Нет данных</div>
@@ -52,4 +52,4 @@
   </div>
 </div>
 
-<%= render 'add_keyword_modal' %>
+<%= render '/layouts/forms/add_keyword_modal' %>

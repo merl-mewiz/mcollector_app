@@ -141,19 +141,5 @@ form {
 }
 .item-keyword-header {
   background-color: #fcfcfc;
-  cursor: pointer;
-}
-.collapsing {
-  -webkit-transition: height .01s ease;
-  -o-transition: height .01s ease;
-  transition: height .01s ease;
-}
-.expand-up {display: none;}
-[aria-expanded="true"] .expand-down,
-[aria-expanded="false"] .expand-up {
-  display: none;
-}
-[aria-expanded="false"] .expand-down,
-[aria-expanded="true"] .expand-up {
-  display: inline-block;
+  cursor: default;
 }

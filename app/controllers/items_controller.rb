@@ -21,6 +21,7 @@ class ItemsController < ApplicationController
 
       @keywords_data[keyword.name] = result_positions
     end
+    @add_keyword_modal_url = add_keyword_path
   end
 
   # GET /items/new
@@ -39,7 +40,10 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to item_url(@item), notice: "Товар \"#{@item.name}\" создан." }
+        format.html do
+          flash[:success] = "Товар \"#{@item.name}\" создан."
+          redirect_to item_url(@item)
+        end
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +56,10 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to item_url(@item), notice: 'Данные успешно обновлены.' }
+        format.html do
+          flash[:success] = 'Данные успешно обновлены.'
+          redirect_to item_url(@item)
+        end
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +74,10 @@ class ItemsController < ApplicationController
     @item.destroy
 
     respond_to do |format|
-      format.html { redirect_to items_url, notice: "Товар \"#{item_name}\" удален." }
+      format.html do
+        flash[:success] = "Товар \"#{item_name}\" удален."
+        redirect_to items_url
+      end
       format.json { head :no_content }
     end
   end

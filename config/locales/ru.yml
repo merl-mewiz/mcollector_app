@@ -1,0 +1,36 @@
+ru:
+  time:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d %b"
+      long: "%d %B, %Y"
+  will_paginate:
+    previous_label: "&#8249; Назад"
+    next_label: "Вперед &#8250;"
+    page_gap: "&hellip;"
+  activerecord:
+    models:
+    attributes:
+      user:
+        fio: "ФИО"
+        phone: "Телефон"
+      item:
+        name: "Название"
+        sku: "Артикул"
+        description: "Описание"
+    errors:
+      models:
+        user:
+          attributes:
+            fio:
+              blank: "не может быть пустым"
+              taken: "уже занято"
+            email:
+              blank: "не может быть пустым"
+            password:
+              blank: "не может быть пустым"
+              too_short: "слишком короткий"
+            password_confirmation:
+              confirmation: не совпадает с введенным паролем
+            current_password:
+              blank: "не указан"

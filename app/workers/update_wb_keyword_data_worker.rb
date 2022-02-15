@@ -1,8 +1,6 @@
 class UpdateWbKeywordDataWorker
   include Sidekiq::Worker
 
-  # WorkNotFinished = Class.new(StandardError)
-  # retry_on WorkNotFinished, wait: 3.minutes
   sidekiq_options retry: 5
 
   def perform(keyword)

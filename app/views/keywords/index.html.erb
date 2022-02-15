@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-12">
        <h4 class="mb-3">Ключевые слова</h4>
-      <div class="card">
+      <div class="card mb-4">
         <div class="card-header">
-          <%= link_to keywords_path, class: 'btn btn-primary' do %>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keywordModal">
             <span class="material-icons button-icon">add</span> Добавить
-          <% end %>
+          </button>
           <div class="d-inline-block">
             <%= button_to update_all_keywords_path, method: :post, class: 'btn btn-info ml-2' do %>
               <span class="material-icons button-icon">downloading</span> Обновить все
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="card-body">
-          <table class="table table-hover">
+          <table class="table table-hover mb-0">
             <tbody>
               <% @keywords.each do |keyword| %>
                 <tr>
@@ -78,9 +78,15 @@
               <% end %>
             </tbody>
           </table>
+          <hr class="mt-0">
+          <div class="mt-4">
+            <%= will_paginate @keywords, list_classes: %w(pagination justify-content-center mb-0) %>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<%= render '/layouts/forms/add_keyword_modal' %>
 
