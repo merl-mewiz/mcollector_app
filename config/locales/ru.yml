@@ -34,3 +34,9 @@ ru:
               confirmation: не совпадает с введенным паролем
             current_password:
               blank: "не указан"
+        item:
+          attributes:
+            name:
+              blank: "не может быть пустым"
+            sku:
+              blank: "не может быть пустым"

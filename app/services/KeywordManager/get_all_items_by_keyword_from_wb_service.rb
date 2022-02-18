@@ -1,5 +1,4 @@
 module KeywordManager
-
   class GetAllItemsByKeywordFromWbService < ApplicationService
     def initialize(keyword)
       @keyword = keyword

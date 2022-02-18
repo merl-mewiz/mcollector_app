@@ -1,0 +1,25 @@
+<div class="modal" id="addBySkuModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h6 class="modal-title"><span class="material-icons modal-header-icon">plagiarism</span> Добавить товар по артикулу</h6>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <%= form_with url: add_by_sku_path, method: :post, local: true do |form| %>
+          <div class="modal-body">
+            <div class="form-group custom-form-group mb-0">
+              <%= form.text_field :sku, :required => true, class: 'form-control custom-input', placeholder: 'Артикул' %>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal">
+              <span class="material-icons button-icon">close</span> Закрыть
+            </button>
+            <%= button_tag type: 'submit', class: 'btn btn-success' do %>
+              <span class="material-icons button-icon">done</span> Добавить
+            <% end %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

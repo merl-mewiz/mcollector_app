@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>McollectorApp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "//www.google.com/jsapi" %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  </head>
+
+<body>
+  <div class="wrapper">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3 class="sidebar-main-logo d-none d-md-inline ">MarketStat</h3>
+        <strong class="d-inline d-md-none">MS</strong>
+      </div>
+
+      <ul class="list-unstyled components">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to items_path do %>
+            <span class="material-icons">shopping_bag</span>
+            <span class="sidebar-active-caption">Мои товары</span>
+          <% end %>
+        </li>
+        <li>
+          <a href="#">
+            <span class="material-icons">category</span>
+            <span class="sidebar-active-caption">Группы товаров</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="material-icons">analytics</span>
+            <span class="sidebar-active-caption">Статистика</span>
+          </a>
+        </li>
+        <li>
+          <%= link_to keywords_path do %>
+            <span class="material-icons">format_list_bulleted</span>
+            <span class="sidebar-active-caption">Ключевые слова</span>
+          <% end %>
+        </li>
+        <li>
+          <a href="#">
+            <span class="material-icons">people</span>
+            <span class="sidebar-active-caption">Пользователи</span>
+          </a>
+        </li>
+        <li>
+          <%= link_to edit_user_registration_path do %>
+            <span class="material-icons">account_circle</span>
+            <span class="sidebar-active-caption">Профиль</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            <span class="material-icons">logout</span>
+            <span class="sidebar-active-caption">Выход</span>
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+    </nav>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+  </div>
+
+<!--
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+      });
+    });
+  </script>
+</body>
+</html>

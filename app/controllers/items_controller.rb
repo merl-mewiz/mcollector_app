@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  layout 'application_logged'
   before_action :authenticate_user!
   before_action :set_item, only: %i[show edit update destroy add_keyword]
 
@@ -11,12 +12,19 @@ class ItemsController < ApplicationController
   # GET /items/1 or /items/1.json
   def show
     @keywords = @item.keywords
-    @keywords_data = Hash.new
+    @keywords_data = {}
     @keywords.each do |keyword|
-      result_positions = Hash.new
-      @positions = WbStatKeyword.where(sku: @item.sku, keyword: keyword.name).order(search_date: :asc)
-      @positions.each do |position|
-        result_positions[position.search_date] = position.position
+      result_positions = {}
+      @positions = WbStatKeyword.where(sku: @item.sku, keyword: keyword.name).order(search_date: :asc).last(8)
+      last_position = 0
+      @positions.each_with_index do |position, index|
+        if index.zero?
+          last_position = position.position
+          next
+        end
+
+        result_positions[position.search_date] = [position.position, last_position - position.position]
+        last_position = position.position
       end
 
       @keywords_data[keyword.name] = result_positions
@@ -46,7 +54,10 @@ class ItemsController < ApplicationController
         end
         format.json { render :show, status: :created, location: @item }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          flash.now[:danger] = errors_to_html(@item)
+          render :new, status: :unprocessable_entity
+        end
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -62,7 +73,10 @@ class ItemsController < ApplicationController
         end
         format.json { render :show, status: :ok, location: @item }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html do
+          flash.now[:danger] = errors_to_html(@item)
+          render :edit, status: :unprocessable_entity
+        end
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
@@ -95,6 +109,32 @@ class ItemsController < ApplicationController
     @item.keywords << @result
 
     redirect_to item_url(@item)
+  end
+
+  def add_by_sku
+    sku = params[:sku].strip
+
+    if user_have_item = current_user.items.where(sku: sku).first
+      flash[:danger] = 'Товар уже есть'
+      redirect_to item_url(user_have_item.id)
+    else
+      # запросить товар по API
+      get_item = ItemsManager::GetItemInfoBySkuService.call(sku)
+      if get_item.is_a? KeywordManager::GetJsonFromOnePageService::Success
+        # сохранить товар
+        @item = Item.create(name: get_item[:item_data]['productInfo']['name'],
+                            sku: sku,
+                            description: get_item[:item_data]['productInfo']['brandName'],
+                            user_id: current_user.id)
+        flash[:success] = "Товар \"#{@item.name}\" создан."
+
+        redirect_to item_url(@item)
+      else
+        # вернуть ошибку
+        flash[:danger] = get_item[:message]
+        redirect_to items_url
+      end
+    end
   end
 
   private

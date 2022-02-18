@@ -1,18 +1,29 @@
-<div class="container mt-4">
+<nav class="navbar navbar-light bg-light mb-4">
+  <div class="container-fluid">
+    <div class="mr-auto">
+      <%= link_to @item, class: 'btn btn-secondary' do %>
+        <span class="material-icons toolbar-button-icon">chevron_left</span> <span class="d-none d-lg-inline">Назад</span>
+      <% end %>
+      <button type="submit" form="itemForm" class="btn btn-success">
+        <span class="material-icons toolbar-button-icon">done</span> <span class="d-none d-lg-inline">Сохранить</span>
+      </button>
+    </div>
+    <%= render '/layouts/system/mobile_menu_button' %>
+  </div>
+</nav>
+<%= render '/layouts/system/flashes' %>
+
+<div class="content-container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-12">
       <h4 class="mb-3">Редактирование "<%= @item.name %>" </h4>
-
-      <div class="card">
-        <div class="card-header">
-          <%= link_to @item, class: 'btn btn-secondary' do %>
-            <span class="material-icons button-icon">chevron_left</span> Назад
-          <% end %>
-        </div>
+      <div class="card simple-shadow border-0 mb-4">
         <div class="card-body pb-0">
           <%= render 'form', item: @item %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>

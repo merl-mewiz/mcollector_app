@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :main, only: %i[index]
   resources :items
   post '/items/:id/addkeyword', to: 'items#add_keyword', as: 'add_keyword'
+  post '/items/add-by-sku', to: 'items#add_by_sku', as: 'add_by_sku'
 
   resources :keywords, only: %i[index create destroy]
   post '/keywords/update/:keyword', to: 'keywords#update_data', as: 'update_keyword'

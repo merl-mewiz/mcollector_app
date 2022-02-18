@@ -1,17 +1,24 @@
-<div class="container mt-4">
+<nav class="navbar navbar-light bg-white mb-4">
+  <div class="container-fluid">
+    <div class="mr-auto">
+      <%= link_to items_path, class: 'btn btn-secondary' do %>
+        <span class="material-icons toolbar-button-icon">chevron_left</span> <span class="d-none d-lg-inline">Назад</span>
+      <% end %>
+      <%= link_to edit_item_path(@item), class: 'btn btn-primary ml-1' do %>
+        <span class="material-icons toolbar-button-icon">edit</span> <span class="d-none d-lg-inline">Редактировать</span>
+      <% end %>
+    </div>
+    <%= render '/layouts/system/mobile_menu_button' %>
+  </div>
+</nav>
+<%= render '/layouts/system/flashes' %>
+
+<div class="content-container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-12">
-
       <h4 class="mb-3"><%= @item.name %></h4>
-      <div class="card">
-        <div class="card-header">
-          <%= link_to items_path, class: 'btn btn-secondary' do %>
-            <span class="material-icons button-icon">chevron_left</span> Назад
-          <% end %>
-          <%= link_to edit_item_path(@item), class: 'btn btn-primary' do %>
-            <span class="material-icons button-icon">edit</span> Редактировать
-          <% end %>
-        </div>
+      <div class="card simple-shadow border-0">
         <div class="card-body pb-0">
           <p><strong>Артикул WB:</strong> <%= @item.sku %></p>
           <p><strong>Описание:</strong> <%= @item.description %></p>
@@ -19,26 +26,53 @@
       </div>
 
       <h5 class="mt-4 mb-2">Ключевые слова</h5>
-      <div class="card mb-4">
+      <div class="card simple-shadow border-0 mb-4">
         <div class="card-header">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keywordModal">
+          <button type="button" class="btn btn-light" data-toggle="modal" data-target="#keywordModal">
             <span class="material-icons button-icon">add</span> Добавить
+          </button>
+          <button type="button" class="btn btn-light" data-toggle="modal" data-target="#keywordModal">
+            <span class="material-icons button-icon">format_list_bulleted</span> Добавить списком
           </button>
         </div>
         <div class="card-body">
           <% @keywords_data.each do |keyword, keyword_data| %>
-            <div class="card mb-2">
+            <div class="card mb-3">
               <div class="card-header item-keyword-header py-2 px-3">
                  <strong><%= keyword %></strong>
               </div>
               <div class="card-body">
                 <% if keyword_data.any? %>
-                <!--
-                  <% keyword_data.each do |keyword_date, keyword_pos| %>
-                    <div><%= keyword_date.strftime("%d.%m.%Y %H:%M:%S") %>: <%= keyword_pos %></div>
-                  <% end %>
-                -->
-                  <%= line_chart keyword_data.map { |key, val| [key.strftime("%d.%m.%Y %H:%M:%S"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1565c0", "#666"] %>
+                  <%= line_chart keyword_data.map { |key, val| [key.strftime("%d.%m.%Y %H:%M"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1565c0", "#666"] %>
+
+                  <table class="table table-sm table-positions text-center mt-4">
+                  <tbody>
+                    <tr class="table-positions-tr-head">
+                      <% keyword_data.each do |keyword_date, keyword_position| %>
+                        <td>
+                          <div class="table-positions-tr-head-date"><%= keyword_date.strftime("%d.%m") %></div>
+                          <div class="table-positions-tr-head-time"><%= keyword_date.strftime("%H:%M") %></div>
+                        </td>
+                      <% end %>
+                    </tr>
+                    <tr class="table-positions-tr-body">
+                      <% keyword_data.each do |keyword_date, keyword_position| %>
+                      <td>
+                        <%= keyword_position[0] %>
+                          <span class="keyword-position">
+                          <% if keyword_position[1].positive? %>
+                            <% keyword_position[1] = "+#{keyword_position[1]}"%>
+                            <span class="material-icons material-icons-positive">arrow_upward</span><span class="keyword-position-label keyword-position-label-positive"><%= keyword_position[1] %></span>
+                          <% elsif keyword_position[1].negative? %>
+                            <span class="material-icons material-icons-negative">arrow_downward</span><span class="keyword-position-label keyword-position-label-negative"><%= keyword_position[1] %></span>
+                          <% end %>
+                          </span>
+
+                      </td>
+                      <% end %>
+                    </tr>
+                  </tbody>
+                  </table>
                 <% else %>
                   <div>Нет данных</div>
                 <% end %>
@@ -51,5 +85,5 @@
     </div>
   </div>
 </div>
-
+</div>
 <%= render '/layouts/forms/add_keyword_modal' %>

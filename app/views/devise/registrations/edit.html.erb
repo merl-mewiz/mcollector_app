@@ -1,9 +1,19 @@
-<div class="container mt-5">
+<nav class="navbar navbar-light bg-light mb-4">
+  <div class="container-fluid">
+    <div class="mr-auto">
+    </div>
+    <%= render '/layouts/system/mobile_menu_button' %>
+  </div>
+</nav>
+<%= render '/layouts/system/flashes' %>
+<%= render "devise/shared/error_messages", resource: resource %>
+
+<div class="content-container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <h3 class="mb-4">Мой профиль</h3>
+      <h4 class="mb-4">Мой профиль</h4>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
         <div class="form-group custom-form-group">
           <%= f.label :fio %>
           <%= f.text_field :fio, class: 'form-control custom-input', placeholder: 'Фамилия Имя' %>
@@ -40,4 +50,5 @@
       <% end %>
     </div>
   </div>
+</div>
 </div>

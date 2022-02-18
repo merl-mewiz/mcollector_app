@@ -1,45 +1,63 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12">
-       <h4 class="mb-3">Товары</h4>
-      <div class="card">
-        <div class="card-header">
-          <%= link_to new_item_path, class: 'btn btn-primary' do %>
-            <span class="material-icons button-icon">add</span> Добавить
-          <% end %>
-        </div>
-        <div class="card-body">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Артикул</th>
-                <th>Название</th>
-                <th>Описание</th>
-                <th colspan="1"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @items.each do |item| %>
+<nav class="navbar navbar-light bg-white mb-4">
+  <div class="container-fluid">
+    <div class="mr-auto">
+      <%= link_to new_item_path, class: 'btn btn-primary' do %>
+          <span class="material-icons toolbar-button-icon">add</span> <span class="d-none d-lg-inline">Добавить</span>
+      <% end %>
+      <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#addBySkuModal">
+        <span class="material-icons toolbar-button-icon">plagiarism</span> <span class="d-none d-lg-inline">Добавить по артикулу</span>
+      </button>
+      <button type="button" class="btn btn-light ml-1 disabled">
+        <span class="material-icons toolbar-button-icon">playlist_add</span> <span class="d-none d-lg-inline">Добавить списком</span>
+      </button>
+    </div>
+    <%= render '/layouts/system/mobile_menu_button' %>
+  </div>
+</nav>
+<%= render '/layouts/system/flashes' %>
+
+<div class="content-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-4">Мои товары</h4>
+        <div class="card simple-shadow border-0 mb-4">
+          <div class="card-body">
+            <table class="table table-hover mb-0">
+              <thead>
                 <tr>
-                  <td><%= item.sku %></td>
-                  <td>
-                    <%= link_to item do %>
-                      <%= item.name %>
-                    <% end %>
-                  </td>
-                  <td><%= item.description %></td>
-                  <td class="px-4">
-                    <%= button_to item, method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
-                      <span class="material-icons btn-table-icon">clear</span>
-                    <% end %>
-                  </td>
+                  <th>Артикул</th>
+                  <th>Название</th>
+                  <th>Описание</th>
+                  <th colspan="1"></th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @items.each do |item| %>
+                  <tr>
+                    <td><%= item.sku %></td>
+                    <td>
+                      <%= link_to item do %>
+                        <%= item.name %>
+                      <% end %>
+                    </td>
+                    <td><%= item.description %></td>
+                    <td class="px-4">
+                      <%= button_to item, method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
+                        <span class="material-icons btn-table-icon">clear</span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <hr class="mt-0">
+        <!-- <div class="mb-5"></div> -->
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<%= render '/layouts/forms/add_item_by_sku_modal' %>

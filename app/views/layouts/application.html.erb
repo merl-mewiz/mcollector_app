@@ -76,7 +76,7 @@
               <% key = 'info' if key == 'notice' || key.empty? %>
               <div class="alert alert-<%= key %> alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= content_tag :div, value%>
+                <%= content_tag :div, value.html_safe%>
               </div>
             <% end %>
           </div>

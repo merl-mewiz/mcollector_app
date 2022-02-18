@@ -1,5 +1,7 @@
 class KeywordsController < ApplicationController
+  layout 'application_logged'
   before_action :authenticate_user!
+  before_action :set_keyword, only: %i[destroy view_log]
 
   def index
     @keywords = Keyword.paginate(page: params[:page], per_page: 30).order('name ASC')
@@ -23,11 +25,20 @@ class KeywordsController < ApplicationController
   end
 
   def destroy
+    keyword_name = @keyword.name
+    @keyword.destroy
+
+    respond_to do |format|
+      format.html do
+        flash[:success] = "Ключевое слово \"#{keyword_name}\" успешно удалено"
+        redirect_to keywords_url
+      end
+      format.json { head :no_content }
+    end
   end
 
-  def view_log
-    @keyword = Keyword.find(params[:id])
-  end
+  # просмотр логов по ключевому слову
+  def view_log; end
 
   # ручной запуск обновления данных по одному ключевому слову
   def update_data
@@ -57,5 +68,11 @@ class KeywordsController < ApplicationController
     CollectWbKeywordsDataWorker.perform_async
 
     redirect_to keywords_url
+  end
+
+  private
+
+  def set_keyword
+    @keyword = Keyword.find(params[:id])
   end
 end
