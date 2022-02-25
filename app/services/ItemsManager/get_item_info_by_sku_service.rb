@@ -1,7 +1,7 @@
 module ItemsManager
   class GetItemInfoBySkuService < ApplicationService
-    def initialize(sku_param)
-      @sku = sku_param.strip
+    def initialize(sku)
+      @sku = sku.strip
       @page_url = "https://napi.wildberries.ru/api/catalog/#{@sku}/detail.aspx"
     end
 

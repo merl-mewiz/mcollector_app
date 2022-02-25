@@ -1,13 +1,15 @@
 <nav class="navbar navbar-light bg-white mb-4">
   <div class="container-fluid">
     <div class="mr-auto">
+    <!--
       <%= link_to new_item_path, class: 'btn btn-primary' do %>
           <span class="material-icons toolbar-button-icon">add</span> <span class="d-none d-lg-inline">Добавить</span>
       <% end %>
-      <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#addBySkuModal">
-        <span class="material-icons toolbar-button-icon">plagiarism</span> <span class="d-none d-lg-inline">Добавить по артикулу</span>
+    -->
+      <button type="button" class="btn btn-primary ml-1" data-toggle="modal" data-target="#addBySkuModal">
+        <span class="material-icons toolbar-button-icon">add</span> <span class="d-none d-lg-inline">Добавить</span>
       </button>
-      <button type="button" class="btn btn-light ml-1 disabled">
+      <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#addByListModal">
         <span class="material-icons toolbar-button-icon">playlist_add</span> <span class="d-none d-lg-inline">Добавить списком</span>
       </button>
     </div>
@@ -23,26 +25,28 @@
         <h4 class="mb-4">Мои товары</h4>
         <div class="card simple-shadow border-0 mb-4">
           <div class="card-body">
-            <table class="table table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>Артикул</th>
-                  <th>Название</th>
-                  <th>Описание</th>
-                  <th colspan="1"></th>
-                </tr>
-              </thead>
+            <table class="table mb-0">
               <tbody>
                 <% @items.each do |item| %>
                   <tr>
-                    <td><%= item.sku %></td>
-                    <td>
-                      <%= link_to item do %>
-                        <%= item.name %>
-                      <% end %>
+                    <td class="text-center">
+                      <img src="<%= item.preview_url %>" style="max-width:64px;">
                     </td>
-                    <td><%= item.description %></td>
-                    <td class="px-4">
+                    <td>
+                      <%= link_to item, class: 's-link' do %>
+                        <div><%= item.name %></div>
+                      <% end %>
+                      <div class="mt-1">
+                        <%= item.brand_name %>
+                      </div>
+                      <div class="mt-1">
+                        Артикул:
+                        <a href="<%= wb_by_sku_path(item.sku) %>" target="_blank" class="s-link" title="Открыть в WB API">
+                          <%= item.sku %>
+                        </a>
+                      </div>
+                    </td>
+                    <td class="px-4 text-right">
                       <%= button_to item, method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2', title: 'Удалить', data: { confirm: 'Вы уверены что хотите удалить товар?' } do %>
                         <span class="material-icons btn-table-icon">clear</span>
                       <% end %>
@@ -52,7 +56,9 @@
               </tbody>
             </table>
             <hr class="mt-0">
-        <!-- <div class="mb-5"></div> -->
+            <div class="mt-4 pb-2">
+              <%= will_paginate @keywords, list_classes: %w(pagination justify-content-center mb-0) %>
+            </div>
           </div>
         </div>
       </div>
@@ -61,3 +67,4 @@
 </div>
 
 <%= render '/layouts/forms/add_item_by_sku_modal' %>
+<%= render '/layouts/forms/add_items_by_list' %>

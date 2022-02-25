@@ -1,14 +1,14 @@
-<div class="modal" id="addBySkuModal">
+<div class="modal" id="addByListModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header py-2">
-        <h6 class="modal-title"><span class="material-icons modal-header-icon">add</span> Добавить товар</h6>
+        <h6 class="modal-title"><span class="material-icons modal-header-icon">playlist_add</span> Добавить товары списком</h6>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-        <%= form_with url: add_by_sku_path, method: :post, local: true do |form| %>
+        <%= form_with url: add_items_by_list_path, method: :post, local: true do |form| %>
           <div class="modal-body">
             <div class="form-group custom-form-group mb-0">
-              <%= form.text_field :sku, :required => true, class: 'form-control custom-input', placeholder: 'Артикул' %>
+              <%= form.text_area :items_list, :required => true, class: 'form-control custom-input', rows: 10, placeholder: 'Список артикулов построчно' %>
             </div>
           </div>
           <div class="modal-footer">

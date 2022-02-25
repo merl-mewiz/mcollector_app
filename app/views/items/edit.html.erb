@@ -4,6 +4,11 @@
       <%= link_to @item, class: 'btn btn-secondary' do %>
         <span class="material-icons toolbar-button-icon">chevron_left</span> <span class="d-none d-lg-inline">Назад</span>
       <% end %>
+      <div class="d-inline-block toolbar-button-near-link">
+        <%= button_to get_info_by_sku_path, method: :post, class: 'btn btn-info' do %>
+          <span class="material-icons toolbar-button-icon">sync</span> <span class="d-none d-lg-inline">Заполнить из API</span>
+        <% end %>
+      </div>
       <button type="submit" form="itemForm" class="btn btn-success">
         <span class="material-icons toolbar-button-icon">done</span> <span class="d-none d-lg-inline">Сохранить</span>
       </button>

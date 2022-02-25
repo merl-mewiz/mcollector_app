@@ -4,9 +4,9 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#keywordModal">
         <span class="material-icons toolbar-button-icon">add</span> <span class="d-none d-lg-inline">Добавить</span>
       </button>
-      <div class="d-inline-block">
+      <div class="d-inline-block toolbar-button-near-link">
         <%= button_to update_all_keywords_path, method: :post, class: 'btn btn-info ml-1' do %>
-          <span class="material-icons toolbar-button-icon">query_stats</span> <span class="d-none d-lg-inline">Обновить все</span>
+          <span class="material-icons toolbar-button-icon">sync</span> <span class="d-none d-lg-inline">Обновить все</span>
         <% end %>
       </div>
     </div>
@@ -48,7 +48,7 @@
                     <td class="col-4 col-lg-8">
                       <div class="d-inline-block">
                         <div>
-                          <a href="https://napi.wildberries.ru/api/search/results?search=<%= keyword.name %>" target="_blank" title="Посмотреть в API WB">
+                          <a href="https://napi.wildberries.ru/api/search/results?search=<%= keyword.name %>" class="s-link" target="_blank" title="Посмотреть в API WB">
                             <%= keyword.name %>
                           </a>
                         </div>

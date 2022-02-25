@@ -19,13 +19,19 @@
     <div class="col-12">
       <h4 class="mb-3"><%= @item.name %></h4>
       <div class="card simple-shadow border-0">
-        <div class="card-body pb-0">
-          <p><strong>Артикул WB:</strong> <%= @item.sku %></p>
-          <p><strong>Описание:</strong> <%= @item.description %></p>
+        <div class="card-body d-flex align-items-top">
+          <div class="d-inline-block">
+            <img src="<%= @item.preview_url %>" style="max-height:160px;">
+          </div>
+          <div class="d-inline-block pl-5">
+            <p><strong>Артикул WB:</strong> <%= @item.sku %></p>
+            <p><strong>Бренд:</strong> <%= @item.brand_name %></p>
+            <p><strong>Описание:</strong> <%= @item.description %></p>
+          </div>
         </div>
       </div>
 
-      <h5 class="mt-4 mb-2">Ключевые слова</h5>
+      <h5 class="mt-4 mb-3">Ключевые слова</h5>
       <div class="card simple-shadow border-0 mb-4">
         <div class="card-header">
           <button type="button" class="btn btn-light" data-toggle="modal" data-target="#keywordModal">
@@ -36,19 +42,27 @@
           </button>
         </div>
         <div class="card-body">
-          <% @keywords_data.each do |keyword, keyword_data| %>
-            <div class="card mb-3">
-              <div class="card-header item-keyword-header py-2 px-3">
-                 <strong><%= keyword %></strong>
+          <% @result_keywords.each do |keyword| %>
+            <div class="card mb-4">
+              <div class="card-header item-keyword-header py-2">
+                <div class="row align-items-center">
+                  <div class="ml-auto col-9">
+                  <strong><%= keyword.name %></strong>
+                  </div>
+                  <div class="mr-auto text-right col-3 pr-1">
+                    <%= button_to del_item_keyword_path(keyword_id: keyword.id), method: :delete, class: 'btn btn-table-button btn-del-button py-2 px-2', title: 'Удалить', data: { confirm: "Удалить ключевое слово \"#{keyword.name}\"?" } do %>
+                      <span class="material-icons btn-table-icon">clear</span>
+                    <% end %>
+                  </div>
+                </div>
               </div>
-              <div class="card-body">
-                <% if keyword_data.any? %>
-                  <%= line_chart keyword_data.map { |key, val| [key.strftime("%d.%m.%Y %H:%M"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1565c0", "#666"] %>
-
-                  <table class="table table-sm table-positions text-center mt-4">
+              <div class="card-body p-0">
+                <% if keyword.positions.any? %>
+                  <%= line_chart keyword.positions.map { |key, val| [key.strftime("%d.%m"), val] }, width: "100%", height: "300px", label: "Позиция", colors: ["#1976d2", "#666"] %>
+                  <table class="table mt-1 table-sm table-positions text-center mb-2 mt-3">
                   <tbody>
                     <tr class="table-positions-tr-head">
-                      <% keyword_data.each do |keyword_date, keyword_position| %>
+                      <% keyword.positions.each do |keyword_date, keyword_position| %>
                         <td>
                           <div class="table-positions-tr-head-date"><%= keyword_date.strftime("%d.%m") %></div>
                           <div class="table-positions-tr-head-time"><%= keyword_date.strftime("%H:%M") %></div>
@@ -56,32 +70,30 @@
                       <% end %>
                     </tr>
                     <tr class="table-positions-tr-body">
-                      <% keyword_data.each do |keyword_date, keyword_position| %>
+                      <% keyword.positions.each do |keyword_date, keyword_position| %>
                       <td>
                         <%= keyword_position[0] %>
-                          <span class="keyword-position">
+                        <span class="keyword-position">
                           <% if keyword_position[1].positive? %>
                             <% keyword_position[1] = "+#{keyword_position[1]}"%>
                             <span class="material-icons material-icons-positive">arrow_upward</span><span class="keyword-position-label keyword-position-label-positive"><%= keyword_position[1] %></span>
                           <% elsif keyword_position[1].negative? %>
                             <span class="material-icons material-icons-negative">arrow_downward</span><span class="keyword-position-label keyword-position-label-negative"><%= keyword_position[1] %></span>
                           <% end %>
-                          </span>
-
+                        </span>
                       </td>
                       <% end %>
                     </tr>
                   </tbody>
                   </table>
                 <% else %>
-                  <div>Нет данных</div>
+                  <div class="p-4">Нет данных</div>
                 <% end %>
               </div>
             </div>
           <% end %>
         </div>
       </div>
-
     </div>
   </div>
 </div>

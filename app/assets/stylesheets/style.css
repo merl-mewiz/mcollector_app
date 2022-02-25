@@ -3,6 +3,14 @@ body {
   font-weight:400;
   color:#333;
 }
+
+a.s-link, a.s-link:visited {
+  color: #009cdc;
+}
+a.s-link:hover, a.s-link:active {
+  color: #004ba0;
+}
+
 h3{
   font-weight:600;
   font-size: 26px;
@@ -14,6 +22,15 @@ h4, h5, h6 {
 .header-hint {
   font-size: 16px;
   color:#656565;
+}
+.h1-help-button {
+  position: relative;
+  top:-3px;
+  padding: 2px 5px 2px 4px;
+  color: #1e0785;
+}
+.h1-help-button:hover {
+  color: #120647;
 }
 .header-logo {height:18px;margin-top:-4px;}
 form {
@@ -73,7 +90,6 @@ form {
   color:#555;
 }
 
-
 .simple-shadow {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
@@ -86,7 +102,10 @@ form {
   color:#000;
   text-decoration: underline;
 }
-
+.toolbar-button-near-link {
+  position: relative;
+  top: 1px;
+}
 .items-list-delete-item {
   width:20px;
 }
@@ -124,7 +143,7 @@ form {
   color:#aeaeae;
 }
 .btn-start-search-button:hover {
-  color: #17a2b8;
+  color: #009cdc;
 }
 .btn-del-button:hover {
   color: #dc3545;
@@ -171,6 +190,7 @@ form {
 }
 .table-positions tbody .table-positions-tr-head td .table-positions-tr-head-date {
   color:#454545;
+  font-weight: 600;
 }
 
 .table-positions tbody .table-positions-tr-body td {
