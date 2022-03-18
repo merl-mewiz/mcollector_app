@@ -42,7 +42,14 @@
                     <% else %>
                       <td class="col-2 col-lg-1 text-center cursor-default" title="Дата последнего сбора статистики и количество результатов">
                         <div><span class="badge badge-dark"><%= keyword.results_count %></span></div>
-                        <div class="table-keyword-date"><%= keyword.last_collect_date.strftime("%d.%m.%Y") if keyword.last_collect_date %><div>
+                        <div class="table-keyword-date">
+                          <% if keyword.last_collect_date.strftime("%d.%m.%Y") == Date.today.strftime("%d.%m.%Y") %>
+                            <span class="material-icons collect-today-icon collect-today-success">download_done</span>
+                          <% else %>
+                            <span class="material-icons collect-today-icon collect-today-warning">circle</span>
+                          <% end %>
+                          <%= keyword.last_collect_date.strftime("%d.%m.%Y") if keyword.last_collect_date %>
+                        <div>
                       </td>
                     <% end %>
                     <td class="col-4 col-lg-8">

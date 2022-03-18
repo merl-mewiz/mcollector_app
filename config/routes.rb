@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root to: 'main#index'
   resources :main, only: %i[index], format: false
   resources :items, format: false
+
+  resources :users, only: %i[index show delete], format: false
+
   post '/items/:id/add-keyword', to: 'items#add_keyword', as: 'add_keyword', format: false
   post '/items/add-by-sku', to: 'items#add_by_sku', as: 'add_by_sku', format: false
   post '/items/add-by-list', to: 'items#add_by_list', as: 'add_items_by_list', format: false

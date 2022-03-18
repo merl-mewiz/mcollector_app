@@ -229,4 +229,17 @@ form {
 .bg-white {
   background-color: #fff;
 }
-
+.collect-today-icon {
+  font-size: 14px;
+  position:relative;
+  top:2px;
+  margin-right: 2px;
+}
+.collect-today-success {
+  color:#43a047;
+}
+.collect-today-warning {
+  font-size:10px;
+  top:1px;
+  color:#fdd835;
+}
